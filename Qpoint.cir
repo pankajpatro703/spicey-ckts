@@ -1,0 +1,12 @@
+Finding Q point of MOSFET
+VDD 2 0 DC 5V
+VS 3 4 DC 0V
+RD 2 3 0 0.360K
+RG 2 1 1M
+M1 4 1 0 0 NMOD w=100u l=10u
+.model NMOD nmos Vto=2V Kp=100u
+.tran 1ms 10ms 0.0001
+.control
+run
+.endc
+.end
