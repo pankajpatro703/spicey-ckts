@@ -1,0 +1,15 @@
+ENMOS characteristic
+VDD	1	0	DC	5V
+VD	1	2	DC	0V
+VGG	3	0	DC	4V
+M1	2	3	0	0	nmod W=50u L=10u
+.model nmod nmos Vto=1.5V Kp=200u
+.dc VDD	0	8	0.1	VGG	0	6	1
+***
+*.dc VGG 0 6 0.1 VDD 0 8 1
+***
+.control
+run
+plot I(VD)
+.end
+.endc
