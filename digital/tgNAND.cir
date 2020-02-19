@@ -17,25 +17,25 @@ CMOS 2-input TG NAND
 * @Author: pankajpatro703 *
 *  Released under ECL v2  *
 ***************************
-vdd 1 0 dc 5v
-va 2 0 pulse 0v 5v 0ns 10us 10us 2ms 4ms  *input A
-vb 3 0 pulse 0v 5v 0ns 10us 10us 4ms 8ms  *input B
-*output at node 6
+vdd 1 0 dc    5v
+va  a 0 pulse 0v 5v 0ns 10us 10us 2ms 4ms	*input A
+vb  b 0 pulse 0v 5v 0ns 10us 10us 4ms 8ms	*input B
+*output at node Y
 **********
-mcn1 4 2 0 0 nmod w=10u l=2u
-mcn2 5 3 0 0 nmod w=10u l=2u
-mtn1 1 4 6 0 nmod w=10u l=2u
-mtn2 5 2 6 0 nmod w=10u l=2u
-mtp1 6 2 1 1 pmod w=10u l=2u
-mtp2 6 4 5 1 pmod w=10u l=2u
-mcp1 4 2 1 1 pmod w=10u l=2u
-mcp2 5 3 1 1 pmod w=10u l=2u
+mcn1 n1 a  0  0  nmod w=10u l=2u
+mcn2 n2 b  0  0  nmod w=10u l=2u
+mtn1 1  n1 y  0  nmod w=10u l=2u
+mtn2 n2 a  y  0  nmod w=10u l=2u
+mtp1 y  a  1  1  pmod w=10u l=2u
+mtp2 y  n1 n2 1  pmod w=10u l=2u
+mcp1 n1 a  1  1  pmod w=10u l=2u
+mcp2 n2 b  1  1  pmod w=10u l=2u
 **********
-.model nmod nmos vto=1v kp=20u
+.model nmod nmos vto=1v  kp=20u
 .model pmod pmos vto=-1v kp=20u
 .tran 0ns 8ms 10us 100us
 .control
 run
-plot v(6) v(2) v(3)
+plot v(y) v(a) v(b)
 .endc
 .end

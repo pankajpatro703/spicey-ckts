@@ -17,24 +17,24 @@ CMOS 2-input Dynamic NOR
 * @Author: pankajpatro703 *
 *  Released under ECL v2  *
 ***************************
-vdd 1 0 dc 5v
-va 2 0 pulse 0v 5v 0ns 10us 10us 1ms 2ms  	*input A
-vb 3 0 pulse 0v 5v 0ns 10us 10us 2ms 4ms  	*input B
-vk 4 0 pulse 0v 5v 0ns 10us 10us 0.9ms 1ms	*clock phi
-*output at node 6
+vdd 1   0 dc    5v
+va  a   0 pulse 0v 5v 0ns 10us 10us 1ms   2ms	*input A
+vb  b   0 pulse 0v 5v 0ns 10us 10us 2ms   4ms	*input B
+vk  phi 0 pulse 0v 5v 0ns 10us 10us 0.9ms 1ms	*clock phi
+*output at node Y
 **********
-mcn1 6 2 5 0 nmod w=10u l=2u
-mcn2 6 3 5 0 nmod w=10u l=2u
-mkn1 5 4 0 0 nmod w=10u l=2u
-mkp1 6 4 1 1 pmod w=10u l=2u
-mbp1 6 6 1 1 pmod w=10u l=40u
+mcn1 y  a   n1 0  nmod w=10u l=2u
+mcn2 y  b   n1 0  nmod w=10u l=2u
+mkn1 n1 phi 0  0  nmod w=10u l=2u
+mkp1 y  phi 1  1  pmod w=10u l=2u
+mbp1 y  y   1  1  pmod w=10u l=40u
 **********
-.model nmod nmos vto=1v kp=20u
+.model nmod nmos vto=1v  kp=20u
 .model pmod pmos vto=-1v kp=20u
 .tran 0ns 4ms 10us 100us
 .control
 run
-plot v(6) v(2) v(3)
-plot v(4)
+plot v(y) v(a) v(b)
+plot v(phi)
 .endc
 .end
