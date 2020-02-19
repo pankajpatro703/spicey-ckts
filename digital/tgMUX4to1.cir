@@ -1,0 +1,56 @@
+CMOS TG 4-to-1 MUX
+*
+*    Copyright 2020 Pankajkumar Patro Licensed under the
+*    Educational Community License, Version 2.0 (the "License"); you may
+*    not use this file except in compliance with the License. You may
+*    obtain a copy of the License at
+*    
+*    http://www.osedu.org/licenses/ECL-2.0
+*
+*    Unless required by applicable law or agreed to in writing,
+*    software distributed under the License is distributed on an "AS IS"
+*    BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+*    or implied. See the License for the specific language governing
+*    permissions and limitations under the License.
+*
+***************************
+* @Author: pankajpatro703 *
+*  Released under ECL v2  *
+***************************
+vdd 1  0 dc    5v
+va  a  0 pulse 0v 5v 0ns 10us 10us 0.50ms 1ms	*input A
+vb  b  0 pulse 0v 5v 0ns 10us 10us 0.25ms 1ms	*input B
+vc  c  0 pulse 0v 5v 0ns 10us 10us 0.12ms 1ms	*input C
+vd  d  0 pulse 0v 5v 0ns 10us 10us 0.06ms 1ms	*input D
+vs0 s0 0 pulse 0v 5v 0ns 10us 10us 1.00ms 2ms	*select S0
+vs1 s1 0 pulse 0v 5v 0ns 10us 10us 2.00ms 4ms	*select S1
+*output at node Y
+**********
+* n-mos *
+mcn1  s01 s0  0   0  nmod w=10u l=2u
+mcn2  s11 s1  0   0  nmod w=10u l=2u
+mtn11 a   s01 n1  0  nmod w=10u l=2u
+mtn12 b   s0  n1  0  nmod w=10u l=2u
+mtn13 c   s01 n2  0  nmod w=10u l=2u
+mtn14 d   s0  n2  0  nmod w=10u l=2u
+mtn21 n1  s11 y   0  nmod w=10u l=2u
+mtn22 n2  s1  y   0  nmod w=10u l=2u
+* p-mos *
+mcp1  s01 s0  1   1  pmod w=10u l=2u
+mcp2  s11 s1  1   1  pmod w=10u l=2u
+mtp11 n1  s0  a   1  pmod w=10u l=2u
+mtp12 n1  s01 b   1  pmod w=10u l=2u
+mtp13 n2  s0  c   1  pmod w=10u l=2u
+mtp14 n2  s01 d   1  pmod w=10u l=2u
+mtp21 y   s1  n1  1  pmod w=10u l=2u
+mtp22 y   s11 n2  1  pmod w=10u l=2u
+**********
+.model nmod nmos vto=1v  kp=20u
+.model pmod pmos vto=-1v kp=20u
+.tran 0ns 4ms 10us 100us
+.control
+run
+plot v(y) v(s0) v(s1)
+plot v(a) v(b) v(c) v(d)
+.endc
+.end
