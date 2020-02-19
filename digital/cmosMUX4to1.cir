@@ -1,0 +1,70 @@
+CMOS 4-to-1 MUX
+*
+*    Copyright 2020 Pankajkumar Patro Licensed under the
+*    Educational Community License, Version 2.0 (the "License"); you may
+*    not use this file except in compliance with the License. You may
+*    obtain a copy of the License at
+*    
+*    http://www.osedu.org/licenses/ECL-2.0
+*
+*    Unless required by applicable law or agreed to in writing,
+*    software distributed under the License is distributed on an "AS IS"
+*    BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+*    or implied. See the License for the specific language governing
+*    permissions and limitations under the License.
+*
+***************************
+* @Author: pankajpatro703 *
+*  Released under ECL v2  *
+***************************
+vdd 1  0 dc    5v
+va  a  0 pulse 0v 5v 0ns 10us 10us 0.50ms 1ms	*input A
+vb  b  0 pulse 0v 5v 0ns 10us 10us 0.25ms 1ms	*input B
+vc  c  0 pulse 0v 5v 0ns 10us 10us 0.12ms 1ms	*input C
+vd  d  0 pulse 0v 5v 0ns 10us 10us 0.06ms 1ms	*input D
+vs0 s0 0 pulse 0v 5v 0ns 10us 10us 2.00ms 4ms	*select S0
+vs1 s1 0 pulse 0v 5v 0ns 10us 10us 1.00ms 2ms	*select S1
+*output at node Y
+**********
+* n-mos *
+mcn1 s01 s0  0   0  nmod w=10u l=2u
+mcn2 s11 s1  0   0  nmod w=10u l=2u
+mn11 y1  d   n11 0  nmod w=10u l=2u
+mn12 n11 s0  n12 0  nmod w=10u l=2u
+mn13 n12 s1  0   0  nmod w=10u l=2u
+mn21 y1  c   n21 0  nmod w=10u l=2u
+mn22 n21 s0  n22 0  nmod w=10u l=2u
+mn23 n22 s11 0   0  nmod w=10u l=2u
+mn31 y1  b   n31 0  nmod w=10u l=2u
+mn32 n31 s01 n32 0  nmod w=10u l=2u
+mn33 n32 s1  0   0  nmod w=10u l=2u
+mn41 y1  a   n41 0  nmod w=10u l=2u
+mn42 n41 s01 n42 0  nmod w=10u l=2u
+mn43 n42 s11 0   0  nmod w=10u l=2u
+mcn3 y   y1  0   0  nmod w=10u l=2u
+* p-mos *
+mcp1 s01 s0  1   1  pmod w=10u l=2u
+mcp2 s11 s1  1   1  pmod w=10u l=2u
+mp11 p1  a   1   1  pmod w=10u l=2u
+mp12 p1  s01 1   1  pmod w=10u l=2u
+mp13 p1  s11 1   1  pmod w=10u l=2u
+mp21 p2  b   p1  1  pmod w=10u l=2u
+mp22 p2  s01 p1  1  pmod w=10u l=2u
+mp23 p2  s1  p1  1  pmod w=10u l=2u
+mp31 p3  c   p2  1  pmod w=10u l=2u
+mp32 p3  s0  p2  1  pmod w=10u l=2u
+mp33 p3  s11 p2  1  pmod w=10u l=2u
+mp41 y1  d   p3  1  pmod w=10u l=2u
+mp42 y1  s0  p3  1  pmod w=10u l=2u
+mp43 y1  s1  p3  1  pmod w=10u l=2u
+mcp3 y   y1  1   1  pmod w=10u l=2u
+**********
+.model nmod nmos vto=1v  kp=20u
+.model pmod pmos vto=-1v kp=20u
+.tran 0ns 4ms 10us 100us
+.control
+run
+plot v(y) v(s0) v(s1)
+plot v(a) v(b) v(c) v(d)
+.endc
+.end
