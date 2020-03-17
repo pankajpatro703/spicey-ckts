@@ -1,2 +1,2 @@
 # spiceFiles
- NGspice files for simulation of analog and digital circuits. 
+ NGspice netlist files for simulation of analog and digital circuits. 
