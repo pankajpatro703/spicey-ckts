@@ -1,10 +1,10 @@
 CMOS SR latch
 *
-*    Copyright 2020 Pankajkumar Patro Licensed under the
+*    Copyright (C) 2020, 2021 Pankajkumar Patro Licensed under the
 *    Educational Community License, Version 2.0 (the "License"); you may
 *    not use this file except in compliance with the License. You may
 *    obtain a copy of the License at
-*    
+*
 *    http://www.osedu.org/licenses/ECL-2.0
 *
 *    Unless required by applicable law or agreed to in writing,
@@ -18,8 +18,10 @@ CMOS SR latch
 *  Released under ECL v2  *
 ***************************
 vdd 1  0 dc    5v
-vs  s  0 pulse 0v 5v 0ns 10us 10us 2ms 4ms	*input S
-vr  r  0 pulse 0v 5v 0ns 10us 10us 1ms 2ms	*input R
+*input S
+vs  s  0 pulse 0v 5v 0ns 10us 10us 2ms 4ms
+*input R
+vr  r  0 pulse 0v 5v 0ns 10us 10us 1ms 2ms
 *output at node Q, Q1
 **********
 * n-mos *
@@ -35,10 +37,10 @@ mq1p q   q1  n2  1  pmod w=10u l=2u
 **********
 .model nmod nmos vto=1v  kp=20u
 .model pmod pmos vto=-1v kp=20u
-.tran 0ns 4ms 10us 100us
+.tran 1ns 4ms 10us 100us
 .control
 run
 plot v(q) v(q1)
-plot v(s) v(r) 
+plot v(s) v(r)
 .endc
 .end

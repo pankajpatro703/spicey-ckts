@@ -1,11 +1,13 @@
 CMOS 2-input NAND
 ***************************
-* @Author: pankajpatro703 *
+*  @Author pankajpatro703 *
 *  Released under ECL v2  *
 ***************************
 vdd 1 0 dc 5v
-va 3 0 pulse 0v 5v 0ns 10us 10us 2ms 4ms  *input A
-vb 4 0 pulse 0v 5v 0ns 10us 10us 4ms 8ms  *input B
+*input A
+va 3 0 pulse 0v 5v 0ns 10us 10us 2ms 4ms
+*input B
+vb 4 0 pulse 0v 5v 0ns 10us 10us 4ms 8ms
 *output at node 2
 **********
 mn1 2 3 5 0 nmod w=10u l=2u
@@ -15,7 +17,7 @@ mp2 2 4 1 1 pmod w=10u l=2u
 **********
 .model nmod nmos vto=1v kp=20u
 .model pmod pmos vto=-1v kp=20u
-.tran 0ns 8ms 10us 100us
+.tran 1ns 8ms 10us 100us
 .control
 run
 plot v(2) v(3) v(4)

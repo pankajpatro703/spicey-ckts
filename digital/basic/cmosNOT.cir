@@ -4,7 +4,8 @@ CMOS inverter NOT
 *  Released under ECL v2  *
 ***************************
 vdd 1 0 dc 5v
-va 2 0 pulse 0v 5v 0ns 10us 10us 2ms 4ms  *input A
+*input A
+va 2 0 pulse 0v 5v 0ns 10us 10us 2ms 4ms
 *output at node 3
 **********
 mn 3 2 0 0 nmod w=10u l=2u
@@ -12,7 +13,7 @@ mp 3 2 1 1 pmod w=10u l=2u
 **********
 .model nmod nmos vto=1v kp=20u
 .model pmod pmos vto=-1v kp=20u
-.tran 0ns 4ms 10us 100us
+.tran 1ns 4ms 10us 100us
 .control
 run
 plot v(3) v(2)
